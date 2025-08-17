@@ -49,6 +49,8 @@ if __name__ == '__main__':
         access_token = auth_login_response.get('accessToken')
 
         return {
+            'id': create_user_response.get('id'),
+            'username': create_user_response.get('username'),
             'response': create_user_response,
             'accessToken': access_token 
         }
@@ -469,3 +471,41 @@ if __name__ == '__main__':
         ('개추', user_elon_response)
     ])
     bulk_likes(53, [user_foo_response, user_elon_response, user_bar_response, user_john_response, user_eminem_response, user_freddie_response, user_james_response, user_trump_response])
+
+    # Follow
+
+    def create_follow(user, target_user):
+        headers = {
+            'Authorization': f'Bearer {user["accessToken"]}',
+            'Content-Type': 'application/json'
+        }
+        return api_call(f'subscription/follow/{target_user["username"]}', method='POST', headers=headers)
+
+    create_follow(user_foo_response, user_john_response)
+    create_follow(user_foo_response, user_james_response)
+    create_follow(user_foo_response, user_elon_response)
+    create_follow(user_foo_response, user_bar_response)
+    create_follow(user_foo_response, user_eminem_response)
+    create_follow(user_foo_response, user_freddie_response)
+
+    create_follow(user_john_response, user_foo_response)
+    create_follow(user_james_response, user_foo_response)
+    create_follow(user_elon_response, user_foo_response)
+    create_follow(user_bar_response, user_foo_response)
+    create_follow(user_eminem_response, user_foo_response)
+    create_follow(user_freddie_response, user_foo_response)
+    create_follow(user_trump_response, user_foo_response)
+    create_follow(user_james_response, user_john_response)
+    create_follow(user_elon_response, user_john_response)
+    create_follow(user_bar_response, user_john_response)
+    create_follow(user_eminem_response, user_john_response)
+    create_follow(user_freddie_response, user_john_response)
+
+    create_follow(user_james_response, user_elon_response)
+    create_follow(user_bar_response, user_elon_response)
+    create_follow(user_eminem_response, user_elon_response)
+    create_follow(user_freddie_response, user_elon_response)
+
+    create_follow(user_freddie_response, user_bar_response)
+    create_follow(user_trump_response, user_bar_response)
+    create_follow(user_james_response, user_bar_response)
